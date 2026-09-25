@@ -11,17 +11,10 @@
       bitwarden-desktop
       dust
       qbittorrent
-      protontricks
-      reaper
       spotify
       telegram-desktop
       termius
       tutanota-desktop
-      vital
-      wineWow64Packages.staging
-      winetricks
-      yabridge
-      yabridgectl
     ];
   };
 
@@ -35,7 +28,7 @@
       enable = true;
       settings = {
         user.name = "F";
-        user.email = "vladislavtkachuk@yahoo.com";
+        user.email = "tkachuk@tuta.com";
       };
     };
     ripgrep.enable = true;
