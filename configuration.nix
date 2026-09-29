@@ -81,8 +81,8 @@
     };
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 7777 ];
-      allowedUDPPorts = [ 7777 ];
+      allowedTCPPorts = [ ];
+      allowedUDPPorts = [ ];
     };
     wireless.iwd = {
       enable = true;
@@ -144,20 +144,6 @@
   };
 
   security = {
-    pam.loginLimits = [
-      {
-        domain = "@audio";
-        item = "memlock";
-        type = "-";
-        value = "unlimited";
-      }
-      {
-        domain = "@audio";
-        item = "rtprio";
-        type = "-";
-        value = "99";
-      }
-    ];
     rtkit.enable = true;
     sudo-rs.enable = true;
   };

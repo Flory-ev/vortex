@@ -3,9 +3,6 @@
   home = {
     username = "f";
     homeDirectory = "/home/f";
-    sessionVariables = {
-      SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/bitwarden-ssh-agent.sock";
-    };
     stateVersion = "26.05";
     packages = with pkgs; [
       bitwarden-desktop
