@@ -8,10 +8,12 @@
       bitwarden-desktop
       dust
       qbittorrent
+      signal-desktop
       spotify
       telegram-desktop
       termius
       tutanota-desktop
+      wineWow64Packages.stable
     ];
   };
 
@@ -31,24 +33,12 @@
     ripgrep.enable = true;
     ssh = {
       enable = true;
-      extraConfig = ''
-        Host *
-          IdentityAgent ~/.bitwarden-ssh-agent.sock
-      '';
-    };
-    starship = {
-      enable = true;
-      settings = {
-        add_newline = true;
-        character = {
-          success_symbol = "[❯](bold green)";
-          error_symbol = "[❯](bold red)";
-        };
-        git_branch = {
-          symbol = "🌱 ";
-        };
+      enableDefaultConfig = false;
+      settings."*" = {
+        IdentityAgent = "~/.bitwarden-ssh-agent.sock";
       };
     };
+    starship.enable = true;
     zed-editor = {
       enable = true;
       extensions = [ "nix" ];

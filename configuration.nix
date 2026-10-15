@@ -1,9 +1,13 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./modules/gaming.nix
+    ./modules/virtualization.nix
+  ];
+
   boot = {
     initrd.systemd.enable = true;
     kernel.sysctl = {
-      "vm.max_map_count" = 2147483642;
       "vm.swappiness" = 10;
       "kernel.dmesg_restrict" = true;
       "kernel.kptr_restrict" = 2;
@@ -26,19 +30,9 @@
     };
   };
 
-  environment = {
-    systemPackages = with pkgs; [
-      nixfmt
-    ];
-
-    sessionVariables = {
-      PROTON_ENABLE_NVAPI = "1";
-      PROTON_HIDE_NVIDIA_GPU = "0";
-      STEAM_RUNTIME_PREFER_HOST_LIBRARIES = "0";
-      WINE_FULLSCREEN_FSR = "1";
-      WINE_FULLSCREEN_FSR_STRENGTH = "2";
-    };
-  };
+  environment.systemPackages = with pkgs; [
+    nixfmt
+  ];
 
   fonts.packages = with pkgs; [
     font-awesome
@@ -56,11 +50,7 @@
     };
 
     cpu.amd.updateMicrocode = true;
-
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
+    graphics.enable = true;
 
     nvidia = {
       modesetting.enable = true;
@@ -99,28 +89,6 @@
       binfmt = true;
     };
     fish.enable = true;
-    gamemode = {
-      enable = true;
-      settings = {
-        general = {
-          renice = -10;
-          softrealtime = "auto";
-        };
-        gpu = {
-          apply_gpu_optimisations = "accept-responsibility";
-          gpu_device = 0;
-          nv_powermizer_mode = 1;
-        };
-        custom = {
-          start = "${pkgs.libnotify}/bin/notify-send 'GameMode' 'Optimizations activated'";
-          end = "${pkgs.libnotify}/bin/notify-send 'GameMode' 'Optimizations deactivated'";
-        };
-      };
-    };
-    gamescope = {
-      enable = true;
-      capSysNice = true;
-    };
     nh = {
       enable = true;
       flake = "/etc/nixos";
@@ -135,11 +103,6 @@
         stdenv.cc.cc
         zlib
       ];
-    };
-    steam = {
-      enable = true;
-      remotePlay.openFirewall = true;
-      gamescopeSession.enable = true;
     };
   };
 
@@ -164,10 +127,7 @@
       enable = true;
       pulse.enable = true;
       jack.enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
+      alsa.enable = true;
     };
     resolved.enable = true;
     xserver.videoDrivers = [ "nvidia" ];
