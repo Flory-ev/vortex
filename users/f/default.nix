@@ -17,15 +17,12 @@
       extensions = [ "nix" ];
     };
     apps = {
-      archive = true;
       communication = true;
       security = true;
       media = true;
       utilities = true;
-      windows = true;
     };
   };
 
-  # Plain home-manager options still work alongside the `my.*` ones.
   programs.firefox.enable = true;
 }

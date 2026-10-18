@@ -7,16 +7,14 @@
 }:
 let
   groups = with pkgs; {
-    archive = [ peazip ];
     communication = [
       signal-desktop
       telegram-desktop
       tutanota-desktop
     ];
     security = [ bitwarden-desktop ];
-    media = [ spotify ];
-    utilities = [ dust ];
-    windows = [ wineWow64Packages.stable ];
+    media = [ reaper spotify ];
+    utilities = [ dust peazip wineWow64Packages.stable ];
   };
 in
 {
