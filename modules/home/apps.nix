@@ -7,6 +7,7 @@
 }:
 let
   groups = with pkgs; {
+    archive = [ peazip ];
     communication = [
       signal-desktop
       telegram-desktop

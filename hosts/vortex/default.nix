@@ -11,7 +11,6 @@
 
     locale = {
       timeZone = "Europe/Copenhagen";
-      extraLocales = [ "ru_RU.UTF-8/UTF-8" ];
     };
 
     hardware = {

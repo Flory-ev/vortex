@@ -17,6 +17,7 @@
       extensions = [ "nix" ];
     };
     apps = {
+      archive = true;
       communication = true;
       security = true;
       media = true;

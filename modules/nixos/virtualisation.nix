@@ -15,8 +15,8 @@ in
       libvirtd = {
         enable = true;
         qemu = {
-          package = pkgs.qemu_kvm; # host-arch only, smaller closure
-          swtpm.enable = true; # virtual TPM (needed for Windows 11)
+          package = pkgs.qemu_kvm;
+          swtpm.enable = true;
           runAsRoot = false;
         };
       };
