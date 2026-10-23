@@ -1,5 +1,8 @@
 {
   networking = {
+
+    hostName = "vortex";
+    
     firewall.enable = true;
 
     networkmanager = {
