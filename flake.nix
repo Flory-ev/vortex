@@ -15,6 +15,11 @@
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
-      imports = [ ./parts ];
+      flake.nixosConfigurations.vortex = inputs.nixpkgs.lib.nixosSystem {
+        modules = [
+          inputs.home-manager.nixosModules.home-manager
+          ./hosts/vortex
+        ];
+      };
     };
 }
