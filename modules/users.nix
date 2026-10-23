@@ -1,17 +1,17 @@
 { pkgs, ... }:
 {
-  programs.fish.enable = true;
-
   users.users.f = {
     isNormalUser = true;
-    shell = pkgs.fish;
     extraGroups = [
       "wheel"
-      "audio"
       "networkmanager"
       "libvirtd"
+      "audio"
     ];
+    shell = pkgs.fish;
   };
+
+  programs.fish.enable = true;
 
   home-manager = {
     useGlobalPkgs = true;
