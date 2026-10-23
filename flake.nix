@@ -1,25 +1,21 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
   };
 
-  outputs =
-    inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
-      flake.nixosConfigurations.vortex = inputs.nixpkgs.lib.nixosSystem {
-        modules = [
-          inputs.home-manager.nixosModules.home-manager
-          ./hosts/vortex
-        ];
-      };
+  outputs = { nixpkgs, home-manager, ... }: {
+    nixosConfigurations.vortex = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+
+      modules = [
+        home-manager.nixosModules.home-manager
+        ./hosts/vortex
+      ];
     };
+  };
 }
