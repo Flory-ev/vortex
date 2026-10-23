@@ -3,7 +3,7 @@
     ./hardware-configuration.nix
     ../../modules/boot.nix
     ../../modules/nix.nix
-    ../../modules/user.nix
+    ../../modules/users.nix
     ../../modules/hardware.nix
     ../../modules/desktop.nix
     ../../modules/networking.nix
