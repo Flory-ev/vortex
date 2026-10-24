@@ -16,6 +16,6 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.f = import ../users/f/default.nix;
+    users.f = import ./home.nix;
   };
 }

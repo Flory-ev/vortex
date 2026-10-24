@@ -8,14 +8,25 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }: {
-    nixosConfigurations.vortex = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+  outputs =
+    { nixpkgs, home-manager, ... }:
+    {
+      nixosConfigurations.vortex = nixpkgs.lib.nixosSystem {
+        modules = [
+          home-manager.nixosModules.home-manager
 
-      modules = [
-        home-manager.nixosModules.home-manager
-        ./hosts/vortex
-      ];
+          ./hardware-configuration.nix
+
+          ./modules/boot.nix
+          ./modules/desktop.nix
+          ./modules/gaming.nix
+          ./modules/hardware.nix
+          ./modules/networking.nix
+          ./modules/nix.nix
+          ./modules/system.nix
+          ./modules/users.nix
+          ./modules/virtualisation.nix
+        ];
+      };
     };
-  };
 }

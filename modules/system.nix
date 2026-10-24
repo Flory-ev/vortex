@@ -1,3 +1,4 @@
+{ ... }:
 {
   i18n.supportedLocales = [
     "en_US.UTF-8/UTF-8"
@@ -15,6 +16,8 @@
     fstrim.enable = true;
     fwupd.enable = true;
   };
+
+  system.stateVersion = "26.05";
 
   time.timeZone = "Europe/Copenhagen";
 
