@@ -26,7 +26,7 @@ layout {
         proportion 0.75
         proportion 1.00
     }
-    default-column-width { proportion 1.00; }
+    default-column-width { proportion 0.25; }
 
     focus-ring {
         width 2
@@ -38,7 +38,7 @@ layout {
 
 prefer-no-csd
 
-spawn-at-startup "waybar"
+spawn-at-startup ""
 
 hotkey-overlay { skip-at-startup; }
 
