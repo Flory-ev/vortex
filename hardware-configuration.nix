@@ -43,7 +43,11 @@
   fileSystems."/home/f/SteamLibrary" = {
     device = "/dev/disk/by-uuid/0e9ed36d-bf76-4d50-9b72-8b7d49aec76d";
     fsType = "ext4";
-    options = [ "defaults" "nofail" "exec" ];
+    options = [
+      "defaults"
+      "nofail"
+      "exec"
+    ];
   };
 
   swapDevices = [ ];
