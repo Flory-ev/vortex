@@ -11,6 +11,10 @@ input {
     }
 }
 
+output "DP-1" {
+    mode "1920x1080@239.964"
+}
+
 layout {
     background-color "000000"
     gaps 10
