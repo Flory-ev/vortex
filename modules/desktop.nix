@@ -1,11 +1,34 @@
-{ ... }:
+{ pkgs, ... }:
 {
-  programs.appimage = {
-    enable = true;
-    binfmt = true;
+  environment.systemPackages = with pkgs; [
+    xwayland-satellite
+  ];
+
+  programs = {
+    appimage = {
+      enable = true;
+      binfmt = true;
+    };
+    niri.enable = true;
   };
 
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    pam.loginLimits = [
+      {
+        domain = "@audio";
+        item = "memlock";
+        type = "-";
+        value = "unlimited";
+      }
+      {
+        domain = "@audio";
+        item = "rtprio";
+        type = "-";
+        value = "99";
+      }
+    ];
+  };
 
   services = {
     desktopManager.cosmic.enable = true;

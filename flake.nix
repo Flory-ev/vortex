@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,9 +13,7 @@
       nixosConfigurations.vortex = nixpkgs.lib.nixosSystem {
         modules = [
           home-manager.nixosModules.home-manager
-
           ./hardware-configuration.nix
-
           ./modules/boot.nix
           ./modules/desktop.nix
           ./modules/gaming.nix

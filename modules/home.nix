@@ -3,8 +3,11 @@
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
+    alacritty
+    ardour
     bitwarden-desktop
     burpsuite
+    fuzzel
     peazip
     reaper
     signal-desktop
