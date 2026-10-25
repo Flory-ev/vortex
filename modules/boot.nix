@@ -1,9 +1,6 @@
 { ... }:
 {
   boot = {
-    initrd.systemd.enable = true;
-    kernelParams = [ "quiet" ];
-
     loader = {
       efi.canTouchEfiVariables = true;
       timeout = 1;
