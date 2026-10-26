@@ -43,7 +43,7 @@
     };
   };
 
-  # ── Hardware / graphics ─────────────────────────────────────────────────
+  # ── Hardware ─────────────────────────────────────────────────
   hardware = {
     graphics = {
       enable = true;
@@ -58,7 +58,7 @@
     };
   };
 
-  # ── System basics ───────────────────────────────────────────────────────
+  # ── System ───────────────────────────────────────────────────────
   i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
   time.timeZone = "Europe/Copenhagen";
   zramSwap.enable = true;
@@ -166,7 +166,6 @@
       };
     };
 
-    # Gaming
     gamemode = {
       enable = true;
       settings.general = {
