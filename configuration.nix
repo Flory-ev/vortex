@@ -51,6 +51,7 @@
     };
 
     nvidia = {
+      settings = false;
       modesetting.enable = true;
       open = true;
       powerManagement.enable = true;
@@ -94,7 +95,6 @@
       "audio"
     ];
 
-    # Formerly home-manager's home.packages
     packages = with pkgs; [
       alacritty
       ardour
@@ -114,7 +114,6 @@
 
   # ── Environment ─────────────────────────────────────────────────────────
   environment = {
-    # bat/eza/fd/ripgrep were home-manager programs.*; they're plain packages here
     systemPackages = with pkgs; [
       xwayland-satellite
       bat
