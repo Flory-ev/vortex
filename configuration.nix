@@ -2,9 +2,10 @@
 {
   # ── Boot ────────────────────────────────────────────────────────────────
   boot = {
+    initrd.supportedFilesystems = [ "btrfs" ];
+
     loader = {
       efi.canTouchEfiVariables = true;
-      timeout = 1;
 
       systemd-boot = {
         enable = true;
@@ -12,10 +13,43 @@
         consoleMode = "max";
         editor = false;
       };
+
+      timeout = 1;
+    };
+  };
+
+  # ── Environment ─────────────────────────────────────────────────────────
+  environment.systemPackages = with pkgs; [
+    bat
+    eza
+    fd
+    ripgrep
+    xwayland-satellite
+    yazi
+  ];
+
+  # ── Hardware ────────────────────────────────────────────────────────────
+  hardware = {
+    graphics = {
+      enable = true;
+      enable32Bit = true;
     };
 
-    kernelParams = [ "nvidia-drm.fbdev=1" ];
-    kernel.sysctl."vm.max_map_count" = 2147483642;
+    nvidia = {
+      modesetting.enable = true;
+      open = true;
+    };
+  };
+
+  # ── Networking ──────────────────────────────────────────────────────────
+  networking = {
+    hostName = "vortex";
+
+    networkmanager = {
+      enable = true;
+      dns = "systemd-resolved";
+      wifi.backend = "iwd";
+    };
   };
 
   # ── Nix ─────────────────────────────────────────────────────────────────
@@ -26,48 +60,48 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # ── Networking ──────────────────────────────────────────────────────────
-  networking = {
-    hostName = "vortex";
-
-    firewall.enable = true;
-
-    networkmanager = {
+  # ── Programs ────────────────────────────────────────────────────────────
+  programs = {
+    appimage = {
       enable = true;
-      dns = "systemd-resolved";
+      binfmt = true;
+    };
 
-      wifi = {
-        backend = "iwd";
-        powersave = false;
+    firefox.enable = true;
+    fish.enable = true;
+    gamemode.enable = true;
+    gamescope.enable = true;
+
+    git = {
+      enable = true;
+      config.user = {
+        email = "tkachuk@tuta.com";
+        name = "F";
       };
     };
-  };
 
-  # ── Hardware ─────────────────────────────────────────────────
-  hardware = {
-    graphics = {
+    nh = {
       enable = true;
-      enable32Bit = true;
+      flake = "/home/f/vortex";
+
+      clean = {
+        enable = true;
+        extraArgs = "--keep 3 --keep-since 4d";
+      };
     };
 
-    nvidia = {
-      settings = false;
-      modesetting.enable = true;
-      open = true;
-      powerManagement.enable = true;
-    };
+    niri.enable = true;
+
+    ssh.extraConfig = "IdentityAgent ~/.bitwarden-ssh-agent.sock";
+
+    starship.enable = true;
+    steam.enable = true;
+    virt-manager.enable = true;
+    zoxide.enable = true;
   };
-
-  # ── System ───────────────────────────────────────────────────────
-  i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
-  time.timeZone = "Europe/Copenhagen";
-  zramSwap.enable = true;
-  system.stateVersion = "26.05";
 
   # ── Security ────────────────────────────────────────────────────────────
   security = {
-    sudo-rs.enable = true;
-    rtkit.enable = true;
     pam.loginLimits = [
       {
         domain = "@audio";
@@ -82,117 +116,14 @@
         value = "99";
       }
     ];
-  };
 
-  # ── Users ───────────────────────────────────────────────────────────────
-  users.users.f = {
-    isNormalUser = true;
-    shell = pkgs.fish;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-      "libvirtd"
-      "audio"
-    ];
-
-    packages = with pkgs; [
-      alacritty
-      ardour
-      bitwarden-desktop
-      burpsuite
-      fuzzel
-      peazip
-      reaper
-      signal-desktop
-      spotify
-      telegram-desktop
-      tutanota-desktop
-      wineWow64Packages.stable
-      zed-editor
-    ];
-  };
-
-  # ── Environment ─────────────────────────────────────────────────────────
-  environment = {
-    systemPackages = with pkgs; [
-      xwayland-satellite
-      bat
-      eza
-      fd
-      ripgrep
-    ];
-
-    sessionVariables = {
-      STEAM_RUNTIME_PREFER_HOST_LIBRARIES = "0";
-      WINE_FULLSCREEN_FSR = "1";
-      WINE_FULLSCREEN_FSR_STRENGTH = "2";
-    };
-  };
-
-  # ── Programs ────────────────────────────────────────────────────────────
-  programs = {
-    appimage = {
-      enable = true;
-      binfmt = true;
-    };
-
-    niri.enable = true;
-    firefox.enable = true;
-    fish.enable = true;
-    starship.enable = true;
-    zoxide.enable = true;
-    virt-manager.enable = true;
-
-    git = {
-      enable = true;
-      config.user = {
-        email = "tkachuk@tuta.com";
-        name = "F";
-      };
-    };
-
-    ssh.extraConfig = ''
-      Host *
-        IdentityAgent ~/.bitwarden-ssh-agent.sock
-    '';
-
-    nh = {
-      enable = true;
-      flake = "/etc/nixos";
-
-      clean = {
-        enable = true;
-        extraArgs = "--keep 3 --keep-since 4d";
-      };
-    };
-
-    gamemode = {
-      enable = true;
-      settings.general = {
-        renice = -10;
-        softrealtime = "auto";
-      };
-    };
-
-    gamescope = {
-      enable = true;
-      capSysNice = true;
-    };
-
-    steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-    };
+    rtkit.enable = true;
+    sudo-rs.enable = true;
   };
 
   # ── Services ────────────────────────────────────────────────────────────
   services = {
-    desktopManager.cosmic.enable = true;
-    displayManager.cosmic-greeter.enable = true;
-    flatpak.enable = true;
-    resolved.enable = true;
-    fstrim.enable = true;
-    fwupd.enable = true;
+    displayManager.lemurs.enable = true;
 
     earlyoom = {
       enable = true;
@@ -200,23 +131,65 @@
       freeSwapThreshold = 10;
     };
 
+    flatpak.enable = true;
+    fstrim.enable = true;
+    fwupd.enable = true;
+
     pipewire = {
       enable = true;
+
       alsa = {
         enable = true;
         support32Bit = true;
       };
+
       jack.enable = true;
       pulse.enable = true;
     };
 
+    resolved.enable = true;
     xserver.videoDrivers = [ "nvidia" ];
+  };
+
+  # ── System ──────────────────────────────────────────────────────────────
+  i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
+  system.stateVersion = "26.05";
+  time.timeZone = "Europe/Copenhagen";
+  zramSwap.enable = true;
+
+  # ── Users ───────────────────────────────────────────────────────────────
+  users.users.f = {
+    isNormalUser = true;
+
+    extraGroups = [
+      "audio"
+      "libvirtd"
+      "networkmanager"
+      "wheel"
+    ];
+
+    packages = with pkgs; [
+      alacritty
+      bitwarden-desktop
+      burpsuite
+      elephant
+      fuzzel
+      peazip
+      reaper
+      signal-desktop
+      spotify
+      telegram-desktop
+      tutanota-desktop
+      walker
+      wineWow64Packages.stable
+      zed-editor
+    ];
+
+    shell = pkgs.fish;
   };
 
   # ── Virtualisation ──────────────────────────────────────────────────────
   virtualisation = {
-    spiceUSBRedirection.enable = true;
-
     libvirtd = {
       enable = true;
 
@@ -226,5 +199,7 @@
         swtpm.enable = true;
       };
     };
+
+    spiceUSBRedirection.enable = true;
   };
 }
