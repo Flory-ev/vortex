@@ -125,12 +125,6 @@
   services = {
     displayManager.lemurs.enable = true;
 
-    earlyoom = {
-      enable = true;
-      freeMemThreshold = 5;
-      freeSwapThreshold = 10;
-    };
-
     flatpak.enable = true;
     fstrim.enable = true;
     fwupd.enable = true;
