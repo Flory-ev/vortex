@@ -8,8 +8,8 @@
     {
       nixosConfigurations.vortex = nixpkgs.lib.nixosSystem {
         modules = [
-          ./hardware-configuration.nix
           ./configuration.nix
+          ./hardware-configuration.nix
         ];
       };
     };
