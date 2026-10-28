@@ -116,13 +116,11 @@
     packages = with pkgs; [
       bitwarden-desktop
       burpsuite
-      peazip
       reaper
       signal-desktop
       spotify
       telegram-desktop
       tutanota-desktop
-      wineWow64Packages.stable
       zed-editor
     ];
     shell = pkgs.fish;
