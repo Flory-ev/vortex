@@ -24,8 +24,6 @@
     eza
     fd
     ripgrep
-    xwayland-satellite
-    yazi
   ];
 
   # ── Hardware ────────────────────────────────────────────────────────────
@@ -90,8 +88,6 @@
       };
     };
 
-    niri.enable = true;
-
     ssh.extraConfig = "IdentityAgent ~/.bitwarden-ssh-agent.sock";
 
     starship.enable = true;
@@ -123,8 +119,8 @@
 
   # ── Services ────────────────────────────────────────────────────────────
   services = {
-    displayManager.lemurs.enable = true;
-
+    displayManager.cosmic-greeter.enable = true;
+    desktopManager.cosmic.enable = true;
     flatpak.enable = true;
     fstrim.enable = true;
     fwupd.enable = true;
@@ -163,18 +159,13 @@
     ];
 
     packages = with pkgs; [
-      alacritty
       bitwarden-desktop
       burpsuite
-      elephant
-      fuzzel
       peazip
-      reaper
       signal-desktop
       spotify
       telegram-desktop
       tutanota-desktop
-      walker
       wineWow64Packages.stable
       zed-editor
     ];
