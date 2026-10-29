@@ -62,7 +62,6 @@
     ssh.extraConfig = "IdentityAgent ~/.bitwarden-ssh-agent.sock";
     starship.enable = true;
     steam.enable = true;
-    virt-manager.enable = true;
     zoxide.enable = true;
   };
 
@@ -109,7 +108,6 @@
     isNormalUser = true;
     extraGroups = [
       "audio"
-      "libvirtd"
       "networkmanager"
       "wheel"
     ];
@@ -126,14 +124,4 @@
     shell = pkgs.fish;
   };
 
-  virtualisation = {
-    libvirtd = {
-      enable = true;
-      qemu = {
-        runAsRoot = false;
-        swtpm.enable = true;
-      };
-    };
-    spiceUSBRedirection.enable = true;
-  };
 }
