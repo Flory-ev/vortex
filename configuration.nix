@@ -1,10 +1,11 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot = {
         configurationLimit = 10;
+        consoleMode = "max";
         enable = true;
       };
       timeout = 1;
@@ -18,7 +19,12 @@
     ripgrep
   ];
 
-  hardware.nvidia.open = true;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    nvidiaSettings = false;
+    open = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
 
   i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
 
