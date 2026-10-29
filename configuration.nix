@@ -4,8 +4,8 @@
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot = {
-        enable = true;
         configurationLimit = 10;
+        enable = true;
       };
       timeout = 1;
     };
@@ -20,11 +20,13 @@
 
   hardware.nvidia.open = true;
 
+  i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
+
   networking = {
     hostName = "vortex";
     networkmanager = {
-      enable = true;
       dns = "systemd-resolved";
+      enable = true;
       wifi.backend = "iwd";
     };
   };
@@ -33,31 +35,32 @@
     "flakes"
     "nix-command"
   ];
+
   nixpkgs.config.allowUnfree = true;
 
   programs = {
     appimage = {
-      enable = true;
       binfmt = true;
+      enable = true;
     };
     firefox.enable = true;
     fish.enable = true;
     gamemode.enable = true;
     gamescope.enable = true;
     git = {
-      enable = true;
       config.user = {
-        name = "F";
         email = "tkachuk@tuta.com";
+        name = "F";
       };
+      enable = true;
     };
     nh = {
-      enable = true;
-      flake = "/home/f/vortex";
       clean = {
         enable = true;
         extraArgs = "--keep 3 --keep-since 4d";
       };
+      enable = true;
+      flake = "/home/f/vortex";
     };
     ssh.extraConfig = "IdentityAgent ~/.bitwarden-ssh-agent.sock";
     starship.enable = true;
@@ -85,32 +88,31 @@
   };
 
   services = {
-    displayManager.cosmic-greeter.enable = true;
     desktopManager.cosmic.enable = true;
+    displayManager.cosmic-greeter.enable = true;
     flatpak.enable = true;
     fstrim.enable = true;
     fwupd.enable = true;
     pipewire = {
-      enable = true;
       alsa.enable = true;
+      enable = true;
       pulse.enable = true;
     };
     resolved.enable = true;
     xserver.videoDrivers = [ "nvidia" ];
   };
 
-  i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" ];
   system.stateVersion = "26.05";
+
   time.timeZone = "Europe/Copenhagen";
-  zramSwap.enable = true;
 
   users.users.f = {
-    isNormalUser = true;
     extraGroups = [
       "audio"
       "networkmanager"
       "wheel"
     ];
+    isNormalUser = true;
     packages = with pkgs; [
       bitwarden-desktop
       burpsuite
@@ -124,4 +126,5 @@
     shell = pkgs.fish;
   };
 
+  zramSwap.enable = true;
 }
