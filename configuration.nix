@@ -122,6 +122,7 @@
     packages = with pkgs; [
       bitwarden-desktop
       burpsuite
+      peazip
       reaper
       signal-desktop
       spotify
