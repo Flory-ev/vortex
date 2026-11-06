@@ -120,10 +120,11 @@
     ];
     isNormalUser = true;
     packages = with pkgs; [
+      ardour
       bitwarden-desktop
+      bottles
       burpsuite
       peazip
-      reaper
       signal-desktop
       spotify
       telegram-desktop
