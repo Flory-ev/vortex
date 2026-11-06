@@ -12,13 +12,6 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    bat
-    eza
-    fd
-    ripgrep
-  ];
-
   hardware.nvidia = {
     modesetting.enable = true;
     nvidiaSettings = false;
@@ -71,7 +64,6 @@
     ssh.extraConfig = "IdentityAgent ~/.bitwarden-ssh-agent.sock";
     starship.enable = true;
     steam.enable = true;
-    zoxide.enable = true;
   };
 
   security = {
